@@ -43,7 +43,7 @@ public class BFSPathFinder<T> implements PathFinder<T> {
                 }
             }
         }
-       return new PathResult<>(viseted, new HashSet<>());
+       return new PathResult<>(viseted, new LinkedHashSet<>());
     }
 
     private Set<T> buildPath(Map<Node<T>, Node<T>> parent, T end) {

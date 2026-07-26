@@ -1,7 +1,9 @@
 package graphs.implementations;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import graphs.Graph;
 import graphs.PathFinder;
@@ -18,8 +20,8 @@ public class DFSPathFinder<T> implements PathFinder<T> {
         if(!encontrado){
             path.clear();
         }
-
-        return new PathResult<>(visited, path);
+        Set<T> pathSet = new LinkedHashSet<>();
+        return new PathResult<>(visited, pathSet);
 
     }
 

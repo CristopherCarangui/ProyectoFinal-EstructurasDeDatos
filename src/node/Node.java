@@ -3,9 +3,10 @@ package node;
 import java.util.Objects;
 
 public class Node<T>{
-    public T value;
+    private T value;
     private Node<T> left;
     private Node<T> right;
+
     public Node(T value) {
         this(value, null, null);
     }
@@ -32,10 +33,12 @@ public class Node<T>{
     public void setRight(Node<T> right) {
         this.right = right;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -44,13 +47,18 @@ public class Node<T>{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Node other = (Node) obj;
+        Node<?> other = (Node<?>) obj;
         if (value == null) {
             if (other.value != null)
                 return false;
         } else if (!value.equals(other.value))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
     }
     
 }

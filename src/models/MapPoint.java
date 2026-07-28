@@ -4,6 +4,7 @@ public class MapPoint {
     private String id;
     private int x;
     private int y;
+    
     public MapPoint(String id, int x, int y) {
         this.id = id;
         this.x = x;
@@ -51,7 +52,8 @@ public class MapPoint {
         return true;
     }
     
-
-    
-    
+    @Override
+    public String toString() {
+        return id;
+    }
 }

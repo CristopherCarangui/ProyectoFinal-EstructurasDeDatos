@@ -1,12 +1,10 @@
 package views;
 
 import javax.swing.JPanel;
-
 import graphs.Graph;
 import models.MapPoint;
 import models.VisualizationMode;
 import node.Node;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,18 +12,16 @@ import java.awt.geom.AffineTransform;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.swing.Timer;
 import java.util.ArrayList;
 
-
-
-
 public class MapPanel extends JPanel implements MouseListener{
+
     public interface ClickListener{
         void onClic(int x, int y, MapPoint cercano);
 
     }
+
     private Image image;
     private Graph<MapPoint> graph;
     private ClickListener clickListener;
@@ -38,7 +34,7 @@ public class MapPanel extends JPanel implements MouseListener{
     private VisualizationMode visualPath = VisualizationMode.FINAL_PATH;
     private Timer tiempoRecorrido;
     private int pasoAnimacion =0;
-    
+    private String modo;
 
     public MapPanel(){
         setLayout(null);
@@ -47,7 +43,8 @@ public class MapPanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(tiempoRecorrido != null && tiempoRecorrido.isRunning()) return;
+        if(tiempoRecorrido != null && tiempoRecorrido.isRunning()) 
+            return;
         if(clickListener != null){
             clickListener.onClic(e.getX(), e.getY(), buscarVecino(e.getX(), e.getY()));
         }
@@ -55,45 +52,52 @@ public class MapPanel extends JPanel implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+        
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+        
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+        
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+        
     }
 
     int radioD =15;
-    public MapPoint buscarVecino(int x,int y){
-        if(graph == null) return null;
+
+    private MapPoint buscarVecino(int x,int y){
+        if(graph == null) 
+            return null;
         for(Node<MapPoint> node: graph.getNodes()){
             MapPoint punto = node.getValue();
             double distancia = Math.hypot(x - punto.getX(), y - punto.getY());
-            if(distancia<= radioD) return punto;
+            if(distancia<= radioD) 
+                return punto;
         }
         return null;
     }
 
     public void recorridoAnimacion(List<MapPoint>visitaOrdenada, List<MapPoint> rutaFinal ){
+        if(visitaOrdenada == null){
+            visitaOrdenada = new ArrayList<>();
+        }
+        if(rutaFinal == null){
+            rutaFinal = new ArrayList<>();
+        }
         this.visitados = visitaOrdenada;
         this.ruta = rutaFinal;
         pasoAnimacion = 0;
 
-        if(tiempoRecorrido != null) tiempoRecorrido.stop();
+        if(tiempoRecorrido != null){
+            tiempoRecorrido.stop();
+        }
 
         tiempoRecorrido = new Timer(100, e->{
             pasoAnimacion++;
@@ -116,7 +120,8 @@ public class MapPanel extends JPanel implements MouseListener{
             gtx.drawImage(image, 0, 0,getWidth(),getHeight(),this);
         }
 
-        if(graph == null) return;
+        if(graph == null) 
+            return;
 
         //direccion flecha
         gtx.setStroke(new BasicStroke(2));
@@ -144,9 +149,9 @@ public class MapPanel extends JPanel implements MouseListener{
         if(rutaFinaliza && ruta != null && !ruta.isEmpty()){
             gtx.setColor(new Color(24, 119, 242));
             gtx.setStroke(new BasicStroke(4));
-            for(int i =0; i< ruta.size()*1;i++){
+            for(int i =0; i< ruta.size()-1;i++){
                 MapPoint pInicial = ruta.get(i);
-                MapPoint pFinal = ruta.get(+1);
+                MapPoint pFinal = ruta.get(i+1);
                 gtx.drawLine(pInicial.getX(), pInicial.getY(), pFinal.getX(), pFinal.getY());
             }
         } 
@@ -155,14 +160,19 @@ public class MapPanel extends JPanel implements MouseListener{
         int radio = 16;
         for(Node<MapPoint> node : graph.getNodes()){
             MapPoint pNodo = node.getValue();
-            if(pNodo.equals(inicio)) gtx.setColor(new Color(46, 204, 113));
-            if(pNodo.equals(fin)) gtx.setColor(new Color(255, 0, 100));
-            if(pNodo.equals(seleccionado)) gtx.setColor( new Color(255, 215, 0));
+            gtx.setColor(Color.BLUE);
+
+            if(pNodo.equals(inicio)) 
+                gtx.setColor(new Color(46, 204, 113));
+            else if(pNodo.equals(fin)) 
+                gtx.setColor(new Color(255, 0, 100));
+            else if(pNodo.equals(seleccionado)) 
+                gtx.setColor( new Color(255, 215, 0));
 
             gtx.fillOval(pNodo.getX()-radio/2, pNodo.getY()-2, radio, radio);
-            gtx.setColor(Color.WHITE);
-            gtx.setStroke(new BasicStroke(1));
+            gtx.setColor(Color.BLACK);
             gtx.drawOval(pNodo.getX()-radio/2, pNodo.getY()-2, radio, radio);
+            gtx.drawString(pNodo.getId(), pNodo.getX() + 10, pNodo.getY() - 10);
         }
     }
 
@@ -185,23 +195,73 @@ public class MapPanel extends JPanel implements MouseListener{
         gtx.setTransform(aq);
     }
 
-    public void setImagen(Image image){this.image = image; repaint();}
-    public void setGraph(Graph<MapPoint> graph) {this.graph= graph;}
-    public void  setClickListener(ClickListener e){this.clickListener =e;}
-    public void setModoVisualizacion(VisualizationMode mode){this.visualPath = mode;}
-    public void setInicio(MapPoint inicio){this.inicio = inicio;}
-    public void setFinal(MapPoint finalp){this.fin = finalp;}
-    public void setSeleccionado(MapPoint selec){this.seleccionado = selec;}
-    public MapPoint getSeleccionado() {return seleccionado;}
-    public void setResultado(List<MapPoint> ruta,List<MapPoint> visitados){this.ruta = ruta;
-        this.visitados = visitados;
+    public void setImagen(Image image){
+        this.image = image; repaint();
     }
+
+    public void setGraph(Graph<MapPoint> graph) {
+        this.graph= graph;
+        repaint();
+    }
+
+    public void  setClickListener(ClickListener e){
+        this.clickListener =e;
+    }
+
+    public void setModoVisualizacion(VisualizationMode mode){
+        exploracion = mode;
+        visualPath = mode;
+        repaint();
+    }
+
+    public void setInicio(MapPoint inicio){
+        this.inicio = inicio;
+        repaint();
+    }
+
+    public void setFinal(MapPoint finalp){
+        this.fin = finalp;
+        repaint();
+    }
+
+    public void setSeleccionado(MapPoint selec){
+        this.seleccionado = selec;
+        repaint();
+    }
+
+    public MapPoint getSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setResultado(List<MapPoint> ruta,List<MapPoint> visitados){
+        this.ruta = ruta;
+        this.visitados = visitados;
+        repaint();
+    }
+
     public void limpiarResultados(){
         this.visitados = new ArrayList<>();
         this.ruta = new ArrayList<>();
-        if(tiempoRecorrido != null) tiempoRecorrido.stop();
+        if(tiempoRecorrido != null){
+            tiempoRecorrido.stop();
+        }
         pasoAnimacion =0;
+        repaint();
     }
 
-    
+    public void setModo(String modo) {
+        this.modo = modo;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public Graph<MapPoint> getGraph() {
+        return graph;
+    }
+
+    public VisualizationMode getModoVisualizacion() {
+        return exploracion;
+    }
 }

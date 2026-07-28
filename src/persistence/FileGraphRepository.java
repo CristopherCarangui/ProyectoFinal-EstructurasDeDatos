@@ -20,6 +20,10 @@ public class FileGraphRepository implements GraphRepository {
     @Override
     public void guardar(Graph<MapPoint> grafo, File archivo) throws IOException {
 
+        if (grafo == null || archivo == null) {
+            throw new IllegalArgumentException("El grafo y el archivo no pueden ser nulos.");
+        }
+
         try (BufferedWriter datos = new BufferedWriter(new FileWriter(archivo))) {
             datos.write("# Formato de nodos: NODE;id;x;y | Formato de uniones: EDGE;from;to;bidirectional ");
             datos.newLine();
@@ -70,14 +74,17 @@ public class FileGraphRepository implements GraphRepository {
                 }
 
                 String[] partes = linea.split(";");
-                if (partes[0].equals("NODE")) {
+                if (partes.length < 4) {
+                    continue;
+                }
+                if ("NODE".equals(partes[0])) {
                     String id = partes[1];
                     int x = Integer.parseInt(partes[2]);
                     int y = Integer.parseInt(partes[3]);
                     MapPoint p = new MapPoint(id, x, y);
                     puntosPorId.put(id, p);
                     grafo.add(p);
-                } else if (partes[0].equals("EDGE")) {
+                } else if ("EDGE".equals(partes[0])) {
                     MapPoint desde = puntosPorId.get(partes[1]);
                     MapPoint hasta = puntosPorId.get(partes[2]);
                     boolean bidireccional = Boolean.parseBoolean(partes[3]);

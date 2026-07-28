@@ -11,7 +11,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.io.File;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -23,7 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-
 import controllers.MapController;
 
 public class MainFrame extends JFrame {
@@ -35,6 +33,7 @@ public class MainFrame extends JFrame {
     private JButton btnBFS , btnDFS;
     private JButton btnGuardar, btnCargar, btnLimpiar;
     private JCheckBox chkRecorrido;
+
     public MainFrame(){
         setTitle("Mapa de calles BFS y DFS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +48,7 @@ public class MainFrame extends JFrame {
                 acomodarTamanio(this);
             }    
         };
+
         setContentPane(tamanios);
         mapPanel = new MapPanel();
         panelButton = aplicarBotones();
@@ -57,27 +57,23 @@ public class MainFrame extends JFrame {
         tamanios.add(panelButton);
         tamanios.add(panelResult);
         tamanios.setComponentZOrder(mapPanel, tamanios.getComponentCount()-1);
+
         new MapController(mapPanel,this);
         
         cargarMapa();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
+
     private void cargarMapa() {
         try{
-            File archivo = new File("/resources/maps/MapaED.png");
-            Image imagen;
-            if(archivo.exists()){
-                imagen = ImageIO.read(archivo);
-            }else{
-                imagen = ImageIO.read(getClass().getResource("/resources/maps/MapaED.png"));
-            }
+            Image imagen = ImageIO.read(getClass().getResource("/maps/MapaED.png"));
             mapPanel.setImagen(imagen);
         }catch(Exception e){
             System.out.println("Error no se encontro la imagen" + e.getMessage());
         }
-        
     }
+
     private JPanel panelResultados() {
         JPanel panelR = new JPanel(){
             @Override
@@ -86,9 +82,10 @@ public class MainFrame extends JFrame {
                 gtx.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
                 gtx.setColor(new Color(43, 45, 66, 220));
                 gtx.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-                super.paintComponents(g); 
+                super.paintComponent(g); 
             };
         };
+        panelR.setLayout(new BorderLayout());
         panelR.setOpaque(false);
         panelR.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
 
@@ -107,8 +104,8 @@ public class MainFrame extends JFrame {
 
         panelR.add(scroll, BorderLayout.CENTER);
         return panelR;
-
     }
+
     private void acomodarTamanio(JPanel tamanio) {
         int ancho = tamanio.getWidth();
         int alto = tamanio.getHeight();
@@ -126,7 +123,7 @@ public class MainFrame extends JFrame {
                 gtx.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
                 gtx.setColor(new Color(43, 45, 66, 220));
                 gtx.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-                super.paintComponents(g); 
+                super.paintComponent(g); 
             };
         };
         panel.setOpaque(false);
@@ -184,9 +181,9 @@ public class MainFrame extends JFrame {
         panel.add(btnCargar);
         panel.add(btnLimpiar);
         return panel;     
-
     }
-     private JLabel crearEtiqueta(String texto) {
+
+    private JLabel crearEtiqueta(String texto) {
         JLabel label = new JLabel(texto, SwingConstants.CENTER);
         label.setForeground(new Color(200, 200, 200));
         label.setFont(new Font("Segoe UI", Font.BOLD, 10));
@@ -208,6 +205,7 @@ public class MainFrame extends JFrame {
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return btn;
     }
+
     private void estilizarAccion(JButton btn) {
         btn.setFocusPainted(false);
         btn.setBackground(new Color(60, 120, 200));
@@ -215,18 +213,72 @@ public class MainFrame extends JFrame {
         btn.setFont(new Font("Segoe UI", Font.BOLD, 12));
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
-    public JButton getBtnCrear() { return btnCrear; }
-    public JButton getBtnBid() { return btnBid; }
-    public JButton getBtnUnid() { return btnUnid; }
-    public JButton getBtnEliminar() { return btnEliminar; }
-    public JButton getBtnInicio() { return btnInicio; }
-    public JButton getBtnFin() { return btnFin; }
-    public JButton getBtnBFS() { return btnBFS; }
-    public JButton getBtnDFS() { return btnDFS; }
-    public JButton getBtnGuardar() { return btnGuardar; }
-    public JButton getBtnCargar() { return btnCargar; }
-    public JButton getBtnLimpiar() { return btnLimpiar; }
-    public JCheckBox getChkRecorrido() { return chkRecorrido; }
 
+    public JButton getBtnCrear() {
+         return btnCrear; 
+    }
+
+    public JButton getBtnBid() {
+        return btnBid; 
+    }
     
+    public JButton getBtnUnid() { 
+        return btnUnid; 
+    }
+
+    public JButton getBtnEliminar() { 
+        return btnEliminar; 
+    }
+
+    public JButton getBtnInicio() { 
+        return btnInicio; 
+    }
+
+    public JButton getBtnFin() { 
+        return btnFin; 
+    }
+
+    public JButton getBtnBFS() { 
+        return btnBFS; 
+    }
+
+    public JButton getBtnDFS() { 
+        return btnDFS; 
+    }
+
+    public JButton getBtnGuardar() { 
+        return btnGuardar; 
+    }
+
+    public JButton getBtnCargar() { 
+        return btnCargar; 
+    }
+
+    public JButton getBtnLimpiar() { 
+        return btnLimpiar; 
+    }
+
+    public JCheckBox getChkRecorrido() { 
+        return chkRecorrido; 
+    }
+
+    public void mostrarResultado(String texto){
+        mResultados.setText(texto);
+    }
+
+    public void limpiarResultados(){
+        mResultados.setText("");
+    }
+
+    public MapPanel getMapPanel(){
+        return mapPanel;
+    }
+
+    public JTextArea getResultados(){
+        return mResultados;
+    }
+
+    public boolean isModoExploracion() {
+        return chkRecorrido.isSelected();
+    }
 }

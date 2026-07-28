@@ -1,6 +1,7 @@
 package graphs;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Graph<T>{
     }
     public void add(T value){
         Node<T> node = new Node<>(value);
-        graph.putIfAbsent(node, new HashSet<>());
+        graph.putIfAbsent(node, new LinkedHashSet<>());
     }
 
     public void addEdge(T v1, T v2){
@@ -63,7 +64,7 @@ public class Graph<T>{
     }
     public Set<Node<T>> getVecinos(T currente) {
         Node<T> vecinos = new Node<>(currente);
-        return graph.getOrDefault(vecinos, new HashSet<>());
+        return graph.getOrDefault(vecinos, new LinkedHashSet<>());
         
     }
     public Set<Node<T>> getNodes(){

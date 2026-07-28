@@ -10,7 +10,6 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,8 +28,8 @@ public class MainFrame extends JFrame {
     private JPanel panelButton;
     private JPanel panelResult;
     private JTextArea mResultados;
-    private JButton btnCrear, btnUnid, btnBid, btnInicio,btnFin,btnEliminar;
-    private JButton btnBFS , btnDFS;
+    private JButton btnCrear, btnUnid, btnBid, btnInicio, btnFin, btnEliminar;
+    private JButton btnBFS, btnDFS;
     private JButton btnGuardar, btnCargar, btnLimpiar;
     private JCheckBox chkRecorrido;
 
@@ -46,20 +45,20 @@ public class MainFrame extends JFrame {
             @Override
             public void doLayout(){
                 acomodarTamanio(this);
-            }    
+            }
         };
 
         setContentPane(tamanios);
         mapPanel = new MapPanel();
         panelButton = aplicarBotones();
-        panelResult = panelResultados();    
+        panelResult = panelResultados();
         tamanios.add(mapPanel);
         tamanios.add(panelButton);
         tamanios.add(panelResult);
-        tamanios.setComponentZOrder(mapPanel, tamanios.getComponentCount()-1);
+        tamanios.setComponentZOrder(mapPanel, tamanios.getComponentCount() - 1);
 
-        new MapController(mapPanel,this);
-        
+        new MapController(mapPanel, this);
+
         cargarMapa();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -79,10 +78,10 @@ public class MainFrame extends JFrame {
             @Override
             protected void paintComponent(Graphics g){
                 Graphics2D gtx = (Graphics2D) g;
-                gtx.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+                gtx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 gtx.setColor(new Color(43, 45, 66, 220));
                 gtx.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-                super.paintComponent(g); 
+                super.paintComponent(g);
             };
         };
         panelR.setLayout(new BorderLayout());
@@ -109,21 +108,21 @@ public class MainFrame extends JFrame {
     private void acomodarTamanio(JPanel tamanio) {
         int ancho = tamanio.getWidth();
         int alto = tamanio.getHeight();
-        if(ancho<=0 || alto<=0) return;
-        mapPanel.setBounds(0,0,ancho,alto);
-        panelButton.setBounds(20,20,200,480);
-        panelResult.setBounds(20,510,320,190);
+        if(ancho <= 0 || alto <= 0) return;
+        mapPanel.setBounds(0, 0, ancho, alto);
+        panelButton.setBounds(20, 20, 200, 480);
+        panelResult.setBounds(20, 510, 320, 190);
     }
-    
+
     private JPanel aplicarBotones() {
         JPanel panel = new JPanel(){
             @Override
             protected void paintComponent(Graphics g){
                 Graphics2D gtx = (Graphics2D) g;
-                gtx.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+                gtx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 gtx.setColor(new Color(43, 45, 66, 220));
                 gtx.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-                super.paintComponent(g); 
+                super.paintComponent(g);
             };
         };
         panel.setOpaque(false);
@@ -141,7 +140,6 @@ public class MainFrame extends JFrame {
         panel.add(btnBid);
         panel.add(btnUnid);
         panel.add(btnEliminar);
-
 
         panel.add(createSeparador());
         panel.add(crearEtiqueta("DEFINIR RUTA"));
@@ -180,7 +178,7 @@ public class MainFrame extends JFrame {
         panel.add(btnGuardar);
         panel.add(btnCargar);
         panel.add(btnLimpiar);
-        return panel;     
+        return panel;
     }
 
     private JLabel crearEtiqueta(String texto) {
@@ -215,51 +213,51 @@ public class MainFrame extends JFrame {
     }
 
     public JButton getBtnCrear() {
-         return btnCrear; 
+        return btnCrear;
     }
 
     public JButton getBtnBid() {
-        return btnBid; 
-    }
-    
-    public JButton getBtnUnid() { 
-        return btnUnid; 
+        return btnBid;
     }
 
-    public JButton getBtnEliminar() { 
-        return btnEliminar; 
+    public JButton getBtnUnid() {
+        return btnUnid;
     }
 
-    public JButton getBtnInicio() { 
-        return btnInicio; 
+    public JButton getBtnEliminar() {
+        return btnEliminar;
     }
 
-    public JButton getBtnFin() { 
-        return btnFin; 
+    public JButton getBtnInicio() {
+        return btnInicio;
     }
 
-    public JButton getBtnBFS() { 
-        return btnBFS; 
+    public JButton getBtnFin() {
+        return btnFin;
     }
 
-    public JButton getBtnDFS() { 
-        return btnDFS; 
+    public JButton getBtnBFS() {
+        return btnBFS;
     }
 
-    public JButton getBtnGuardar() { 
-        return btnGuardar; 
+    public JButton getBtnDFS() {
+        return btnDFS;
     }
 
-    public JButton getBtnCargar() { 
-        return btnCargar; 
+    public JButton getBtnGuardar() {
+        return btnGuardar;
     }
 
-    public JButton getBtnLimpiar() { 
-        return btnLimpiar; 
+    public JButton getBtnCargar() {
+        return btnCargar;
     }
 
-    public JCheckBox getChkRecorrido() { 
-        return chkRecorrido; 
+    public JButton getBtnLimpiar() {
+        return btnLimpiar;
+    }
+
+    public JCheckBox getChkRecorrido() {
+        return chkRecorrido;
     }
 
     public void mostrarResultado(String texto){
@@ -268,6 +266,11 @@ public class MainFrame extends JFrame {
 
     public void limpiarResultados(){
         mResultados.setText("");
+    }
+
+    // Alias para compatibilidad si algun controlador llama al nombre en singular
+    public void limpiarResultado(){
+        limpiarResultados();
     }
 
     public MapPanel getMapPanel(){

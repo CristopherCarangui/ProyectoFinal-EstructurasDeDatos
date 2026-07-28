@@ -19,7 +19,6 @@ public class MapPanel extends JPanel implements MouseListener{
 
     public interface ClickListener{
         void onClic(int x, int y, MapPoint cercano);
-
     }
 
     private Image image;
@@ -33,17 +32,30 @@ public class MapPanel extends JPanel implements MouseListener{
     private VisualizationMode exploracion = VisualizationMode.EXPLORATION;
     private VisualizationMode visualPath = VisualizationMode.FINAL_PATH;
     private Timer tiempoRecorrido;
-    private int pasoAnimacion =0;
-    private String modo;
+    private int pasoAnimacion = 0;
+    private int segmentoRuta = 0;
+    private double progresoRecorrido = 0.0;
+    private String modo = "";
 
     public MapPanel(){
         setLayout(null);
         addMouseListener(this);
     }
 
+    // Al repintar el mapa, tambien repintamos el contenedor padre para que
+    // los paneles semitransparentes que quedan encima (botones/resultados)
+    // se redibujen correctamente durante la animacion.
+    @Override
+    public void repaint() {
+        super.repaint();
+        if (getParent() != null) {
+            getParent().repaint();
+        }
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(tiempoRecorrido != null && tiempoRecorrido.isRunning()) 
+        if(tiempoRecorrido != null && tiempoRecorrido.isRunning())
             return;
         if(clickListener != null){
             clickListener.onClic(e.getX(), e.getY(), buscarVecino(e.getX(), e.getY()));
@@ -70,15 +82,15 @@ public class MapPanel extends JPanel implements MouseListener{
         
     }
 
-    int radioD =15;
+    int radioD = 15;
 
-    private MapPoint buscarVecino(int x,int y){
-        if(graph == null) 
+    public MapPoint buscarVecino(int x,int y){
+        if(graph == null)
             return null;
         for(Node<MapPoint> node: graph.getNodes()){
             MapPoint punto = node.getValue();
             double distancia = Math.hypot(x - punto.getX(), y - punto.getY());
-            if(distancia<= radioD) 
+            if(distancia<= radioD)
                 return punto;
         }
         return null;
@@ -94,14 +106,27 @@ public class MapPanel extends JPanel implements MouseListener{
         this.visitados = visitaOrdenada;
         this.ruta = rutaFinal;
         pasoAnimacion = 0;
+        segmentoRuta = 0;
+        progresoRecorrido = 0.0;
 
         if(tiempoRecorrido != null){
             tiempoRecorrido.stop();
         }
 
-        tiempoRecorrido = new Timer(100, e->{
-            pasoAnimacion++;
-            if(pasoAnimacion >= visitados.size() + ruta.size()){
+        tiempoRecorrido = new Timer(40, e->{
+            boolean recorridoTerminado = pasoAnimacion >= visitados.size();
+            if(!recorridoTerminado){
+                pasoAnimacion++;
+            }else if(ruta.size()>1){
+                progresoRecorrido += 0.06;
+                if(progresoRecorrido>=1.0){
+                    progresoRecorrido = 0.0;
+                    segmentoRuta++;
+                    if(segmentoRuta >= ruta.size()-1){
+                        ((Timer) e.getSource()).stop();
+                    }
+                }
+            }else{
                 ((Timer) e.getSource()).stop();
             }
             repaint();
@@ -120,12 +145,12 @@ public class MapPanel extends JPanel implements MouseListener{
             gtx.drawImage(image, 0, 0,getWidth(),getHeight(),this);
         }
 
-        if(graph == null) 
+        if(graph == null)
             return;
 
         //direccion flecha
         gtx.setStroke(new BasicStroke(2));
-        gtx.setColor(new Color(255, 0, 128));
+        gtx.setColor(new Color(30, 60, 200, 230));
         Map<Node<MapPoint>,Set<Node<MapPoint>>> mapaGraph = graph.getGraph();
         for(Map.Entry<Node<MapPoint>,Set<Node<MapPoint>>> entry : mapaGraph.entrySet()){
             MapPoint origen = entry.getKey().getValue();
@@ -134,7 +159,7 @@ public class MapPanel extends JPanel implements MouseListener{
             }
         } 
 
-        //exploracionTrabajo Autonomo
+        //exploracion
         boolean animacion = tiempoRecorrido != null  && tiempoRecorrido.isRunning();
         if(exploracion == VisualizationMode.EXPLORATION && animacion){
             gtx.setColor(new Color(255, 0, 50));
@@ -144,17 +169,33 @@ public class MapPanel extends JPanel implements MouseListener{
             }
         }
 
-        //rutafinal
-        boolean rutaFinaliza = visualPath == VisualizationMode.FINAL_PATH || pasoAnimacion >= visitados.size();
-        if(rutaFinaliza && ruta != null && !ruta.isEmpty()){
-            gtx.setColor(new Color(24, 119, 242));
+        //ruta final (con animacion de segmento y punto en movimiento)
+        if(ruta != null && ruta.size()>1){
+            gtx.setColor(new Color(57, 255, 20));
             gtx.setStroke(new BasicStroke(4));
-            for(int i =0; i< ruta.size()-1;i++){
-                MapPoint pInicial = ruta.get(i);
-                MapPoint pFinal = ruta.get(i+1);
-                gtx.drawLine(pInicial.getX(), pInicial.getY(), pFinal.getX(), pFinal.getY());
+            if(!animacion){
+                for(int i =0; i< ruta.size()-1;i++){
+                    MapPoint pInicial = ruta.get(i);
+                    MapPoint pFinal = ruta.get(i+1);
+                    gtx.drawLine(pInicial.getX(), pInicial.getY(), pFinal.getX(), pFinal.getY());
+                }
+            }else if(pasoAnimacion>= visitados.size()){
+                for(int i =0; i< ruta.size()-1;i++){
+                    MapPoint pInicial = ruta.get(i);
+                    MapPoint pFinal = ruta.get(i+1);
+                    gtx.drawLine(pInicial.getX(), pInicial.getY(), pFinal.getX(), pFinal.getY());
+                }
+                if(segmentoRuta<ruta.size()-1){
+                    MapPoint rutaInicial = ruta.get(segmentoRuta);
+                    MapPoint rutaFinal = ruta.get(segmentoRuta+1);
+                    int x = (int) (rutaInicial.getX() +(rutaFinal.getX()-rutaInicial.getX()) *progresoRecorrido);
+                    int y = (int) (rutaInicial.getY() +(rutaFinal.getY()-rutaInicial.getY()) *progresoRecorrido);
+                    gtx.drawLine(rutaInicial.getX(), rutaInicial.getY(), x, y);
+                    gtx.setColor(Color.ORANGE);
+                    gtx.fillOval(x-8, y-8, 16, 16);
+                }
             }
-        } 
+        }
 
         // nodos
         int radio = 16;
@@ -162,15 +203,16 @@ public class MapPanel extends JPanel implements MouseListener{
             MapPoint pNodo = node.getValue();
             gtx.setColor(Color.BLUE);
 
-            if(pNodo.equals(inicio)) 
+            if(pNodo.equals(inicio))
                 gtx.setColor(new Color(46, 204, 113));
-            else if(pNodo.equals(fin)) 
+            else if(pNodo.equals(fin))
                 gtx.setColor(new Color(255, 0, 100));
-            else if(pNodo.equals(seleccionado)) 
-                gtx.setColor( new Color(255, 215, 0));
+            else if(pNodo.equals(seleccionado))
+                gtx.setColor(new Color(255, 215, 0));
 
             gtx.fillOval(pNodo.getX()-radio/2, pNodo.getY()-2, radio, radio);
             gtx.setColor(Color.BLACK);
+            gtx.setStroke(new BasicStroke(1));
             gtx.drawOval(pNodo.getX()-radio/2, pNodo.getY()-2, radio, radio);
             gtx.drawString(pNodo.getId(), pNodo.getX() + 10, pNodo.getY() - 10);
         }
@@ -196,16 +238,17 @@ public class MapPanel extends JPanel implements MouseListener{
     }
 
     public void setImagen(Image image){
-        this.image = image; repaint();
-    }
-
-    public void setGraph(Graph<MapPoint> graph) {
-        this.graph= graph;
+        this.image = image;
         repaint();
     }
 
-    public void  setClickListener(ClickListener e){
-        this.clickListener =e;
+    public void setGraph(Graph<MapPoint> graph) {
+        this.graph = graph;
+        repaint();
+    }
+
+    public void setClickListener(ClickListener e){
+        this.clickListener = e;
     }
 
     public void setModoVisualizacion(VisualizationMode mode){
@@ -245,7 +288,9 @@ public class MapPanel extends JPanel implements MouseListener{
         if(tiempoRecorrido != null){
             tiempoRecorrido.stop();
         }
-        pasoAnimacion =0;
+        pasoAnimacion = 0;
+        segmentoRuta = 0;
+        progresoRecorrido = 0.0;
         repaint();
     }
 

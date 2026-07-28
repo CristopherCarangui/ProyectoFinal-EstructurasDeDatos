@@ -37,18 +37,19 @@ public class Graph<T>{
    
 
 
-    public void removeAddEdge(T v1, T v2 ){
+    public void removeEdge(T v1, T v2 ){
         Node<T> nV1 = new Node<>(v1);
         Node<T> nV2 = new Node<>(v2);
-        graph.get(nV1).remove(nV2);
-        graph.get(nV2).remove(nV1);
-        
+        if(graph.containsKey(nV1)){
+            graph.get(nV1).remove(nV2);
+        }
+        if(graph.containsKey(nV2)){
+            graph.get(nV2).remove(nV1);
+        }   
     }
     public void removeEdgeUni(T v1 , T v2){
         Node<T> nV1 = new Node<>(v1);
         Node<T> nV2 = new Node<>(v2);
-        add(v1);
-        add(v2);
         graph.get(nV1).remove(nV2);
 
     }

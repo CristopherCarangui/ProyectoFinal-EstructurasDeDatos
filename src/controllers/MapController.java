@@ -48,8 +48,20 @@ public class MapController {
         configurarGuardar();
         configurarCargar();
         configurarLimpiar();
+        configurarEliminarConexion();
         mapPanel.setClickListener(this::manejarClic);
         
+    }
+
+
+    private void configurarEliminarConexion() {
+       mainFrame.getBtnEliminarConexion().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e ){
+                mapPanel.setModo("ELIMINAR_CONEXION");
+            }
+
+       });
     }
 
 
@@ -131,6 +143,23 @@ public class MapController {
                     }
 
                     mapPanel.repaint();
+                }
+                break;
+            case "ELIMINAR_CONEXION":
+                if(cercano != null){
+                    if(seleccionado == null){
+                        seleccionado = cercano;
+                        mapPanel.setSeleccionado(seleccionado);
+                    }else{
+                        if(seleccionado.equals(cercano)){
+                            JOptionPane.showMessageDialog(mapPanel,"Selecciona dos nodos distintos");
+                            return;
+                        }
+                        grafo.removeEdge(seleccionado, cercano); 
+                        seleccionado = null;
+                        mapPanel.setSeleccionado(null);
+                        mapPanel.repaint();
+                    }
                 }
                 break;
             default:

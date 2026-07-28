@@ -66,7 +66,7 @@ public class MainFrame extends JFrame {
 
     private void cargarMapa() {
         try{
-            Image imagen = ImageIO.read(getClass().getResource("/resources/maps/MapaED.png"));
+            Image imagen = ImageIO.read(getClass().getResource("/resources/maps/MapaBarcelona.png"));
             mapPanel.setImagen(imagen);
         }catch(Exception e){
             System.out.println("Error no se encontro la imagen" + e.getMessage());

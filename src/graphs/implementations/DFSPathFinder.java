@@ -20,7 +20,7 @@ public class DFSPathFinder<T> implements PathFinder<T> {
         if(!encontrado){
             path.clear();
         }
-        Set<T> pathSet = new LinkedHashSet<>();
+        Set<T> pathSet = new LinkedHashSet<>(path);
         return new PathResult<>(visited, pathSet);
 
     }

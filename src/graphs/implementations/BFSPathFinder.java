@@ -3,6 +3,7 @@ package graphs.implementations;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,8 +21,8 @@ public class BFSPathFinder<T> implements PathFinder<T> {
     @Override
     public PathResult<T> find(Graph<T> graph, T start, T end) {
         Queue<T> queue = new LinkedList<>();
-        Set<T> visitados = new HashSet<>();
-        Map<Node<T>,Node<T>> parent = new HashMap<>(); 
+        Set<T> visitados = new LinkedHashSet<>();
+        Map<Node<T>,Node<T>> parent = new LinkedHashMap<>(); 
         List<T> viseted = new ArrayList<>(); 
         queue.add(start);
         visitados.add(start);

@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
     private JPanel panelButton;
     private JPanel panelResult;
     private JTextArea mResultados;
-    private JButton btnCrear, btnUnid, btnBid, btnInicio, btnFin, btnEliminar;
+    private JButton btnCrear, btnUnid, btnBid, btnInicio, btnFin, btnEliminar,btnEliminarConexion;
     private JButton btnBFS, btnDFS;
     private JButton btnGuardar, btnCargar, btnLimpiar;
     private JCheckBox chkRecorrido;
@@ -139,11 +139,13 @@ public class MainFrame extends JFrame {
         btnBid = crearBoton("Conectar Doble", "CONECTAR_BIDIRECCIONAL");
         btnUnid = crearBoton("Conectar Uno", "CONECTAR_UNIDIRECCIONAL");
         btnEliminar = crearBoton("Eliminar", "ELIMINAR_NODO");
+        btnEliminarConexion = crearBoton("Eliminar Conexión", "ELIMINAR_CONEXION");
 
         panel.add(btnCrear);
         panel.add(btnBid);
         panel.add(btnUnid);
         panel.add(btnEliminar);
+        panel.add(btnEliminarConexion);
 
         panel.add(createSeparador());
         panel.add(crearEtiqueta("DEFINIR RUTA"));
@@ -288,4 +290,22 @@ public class MainFrame extends JFrame {
     public boolean isModoExploracion() {
         return chkRecorrido.isSelected();
     }
+
+    public JPanel getPanelButton() {
+        return panelButton;
+    }
+
+    public JPanel getPanelResult() {
+        return panelResult;
+    }
+
+    public JTextArea getmResultados() {
+        return mResultados;
+    }
+
+    public JButton getBtnEliminarConexion() {
+        return btnEliminarConexion;
+    }
+
+    
 }

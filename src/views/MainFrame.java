@@ -66,7 +66,7 @@ public class MainFrame extends JFrame {
 
     private void cargarMapa() {
         try{
-            Image imagen = ImageIO.read(getClass().getResource("/maps/MapaED.png"));
+            Image imagen = ImageIO.read(getClass().getResource("/resources/maps/MapaED.png"));
             mapPanel.setImagen(imagen);
         }catch(Exception e){
             System.out.println("Error no se encontro la imagen" + e.getMessage());
@@ -87,6 +87,7 @@ public class MainFrame extends JFrame {
         panelR.setLayout(new BorderLayout());
         panelR.setOpaque(false);
         panelR.setBorder(BorderFactory.createEmptyBorder(10, 12, 10, 12));
+        panelR.setPreferredSize(new Dimension(260, 200));
 
         mResultados = new JTextArea("Ejecuta BFS o DFS para ver el resultado aqui.");
         mResultados.setEditable(false);
@@ -94,12 +95,13 @@ public class MainFrame extends JFrame {
         mResultados.setWrapStyleWord(true);
         mResultados.setOpaque(false);
         mResultados.setForeground(Color.WHITE);
-        mResultados.setFont(new Font("Consolas", Font.PLAIN, 13));
+        mResultados.setFont(new Font("Consolas", Font.PLAIN, 15));
 
         JScrollPane scroll = new JScrollPane(mResultados);
         scroll.setOpaque(false);
         scroll.getViewport().setOpaque(false);
         scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.setPreferredSize(new Dimension(260, 200));
 
         panelR.add(scroll, BorderLayout.CENTER);
         return panelR;
@@ -268,7 +270,7 @@ public class MainFrame extends JFrame {
         mResultados.setText("");
     }
 
-    // Alias para compatibilidad si algun controlador llama al nombre en singular
+    
     public void limpiarResultado(){
         limpiarResultados();
     }

@@ -61,45 +61,39 @@ Una búsqueda en profundidad (DFS) no necesariamente encuentra el camino más co
 
 ## Arquitectua y estructura de carpetas
 
+## Arquitectura y estructura de carpetas
+
+```text
 ProyectoFinal-EST/
 ├── .vscode/
 ├── bin/
 ├── src/
 │   ├── controllers/
 │   │   └── MapController.java
-│   │
 │   ├── graphs/
-│   │   ├── implementations/
-│   │   │   ├── BFSPathFinder.java
-│   │   │   └── DFSPathFinder.java
+│   │   ├── BFSPathFinder.java
+│   │   ├── DFSPathFinder.java
 │   │   ├── Graph.java
 │   │   ├── PathFinder.java
 │   │   └── PathResult.java
-│   │
 │   ├── models/
 │   │   ├── MapPoint.java
-│   │   └── VisualizationMode.java
-│   │
-│   ├── node/
-│   │   └── Node.java
-│   │
+│   │   └── node/
+│   │       └── Node.java
 │   ├── persistence/
 │   │   ├── FileGraphRepository.java
 │   │   └── GraphRepository.java
-│   │
 │   ├── resources/
 │   │   ├── images/
 │   │   │   └── upslogo.png
 │   │   └── maps/
 │   │       └── MapaED.png
-│   │
 │   ├── views/
 │   │   ├── MainFrame.java
 │   │   └── MapPanel.java
-│   │
 │   └── App.java
-│
 └── README.md
+```
 
 ## Explicación general de funcionamiento
 

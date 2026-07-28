@@ -61,7 +61,6 @@ Una búsqueda en profundidad (DFS) no necesariamente encuentra el camino más co
 
 ## Arquitectua y estructura de carpetas
 
-## Arquitectura y estructura de carpetas
 
 ```text
 ProyectoFinal-EST/

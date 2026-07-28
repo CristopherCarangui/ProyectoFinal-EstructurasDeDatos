@@ -1,8 +1,8 @@
 package graphs.implementations;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -38,7 +38,7 @@ public class BFSPathFinder<T> implements PathFinder<T> {
 
             for(Node<T> vecino : graph.getVecinos(current)){
                 if(!visitados.contains(vecino.getValue())){
-                    visitados.add(current);
+                    visitados.add(vecino.getValue());
                     parent.put(vecino, new Node<>(current));
                     queue.add(vecino.getValue());
                 }
@@ -48,13 +48,14 @@ public class BFSPathFinder<T> implements PathFinder<T> {
     }
 
     private Set<T> buildPath(Map<Node<T>, Node<T>> parent, T end) {
-        Set<T> path = new LinkedHashSet<>();
+        List<T> pathList = new ArrayList<>();
         Node<T> nEnd = new Node<>(end);
         for(Node<T> at = nEnd ; at != null ; at = parent.get(at)){
-            path.add(at.getValue());
+            pathList.add(at.getValue());
 
         }
-        return path;
+        Collections.reverse(pathList);;
+        return new LinkedHashSet<>(pathList);
     }
     
 }

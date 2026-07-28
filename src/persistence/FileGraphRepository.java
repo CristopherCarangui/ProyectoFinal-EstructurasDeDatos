@@ -41,8 +41,7 @@ public class FileGraphRepository implements GraphRepository {
                 for (Node<MapPoint> destinoN : entry.getValue()) {
                     MapPoint destino = destinoN.getValue();
 
-                    String par = origen.getId().compareTo(destino.getId()) <= 0 
-                    ? origen.getId() + "::" + destino.getId() : destino.getId() + "::" + origen.getId();
+                    String par = origen.getId().compareTo(destino.getId()) <= 0 ? origen.getId() + "::" + destino.getId() : destino.getId() + "::" + origen.getId();
 
                     if (visitados.contains(par)) {
                         continue;

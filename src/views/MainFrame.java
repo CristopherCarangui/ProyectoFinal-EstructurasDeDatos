@@ -110,7 +110,9 @@ public class MainFrame extends JFrame {
     private void acomodarTamanio(JPanel tamanio) {
         int ancho = tamanio.getWidth();
         int alto = tamanio.getHeight();
-        if(ancho <= 0 || alto <= 0) return;
+        if(ancho <= 0 || alto <= 0){ 
+            return;
+        }
         mapPanel.setBounds(0, 0, ancho, alto);
         panelButton.setBounds(20, 20, 200, 480);
         panelResult.setBounds(20, 510, 320, 190);

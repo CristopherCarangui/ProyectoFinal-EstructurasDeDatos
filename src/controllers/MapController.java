@@ -230,37 +230,34 @@ public class MapController {
 
     private void ejecutarAlgoritmo(PathFinder<MapPoint> algoritmo, String nombreAlgoritmo) {
 
-    if (inicio == null || finalA == null) {
-        JOptionPane.showMessageDialog(mapPanel,"Debes marcar un punto de Inicio y un Destino primero");
-        return;
-    }
+        if (inicio == null || finalA == null) {
+            JOptionPane.showMessageDialog(mapPanel,"Debes marcar un punto de Inicio y un Destino primero");
+            return;
+        }
 
-    long t0 = System.nanoTime();
-    PathResult<MapPoint> resultado = algoritmo.find(grafo, inicio, finalA);
-    long t1 = System.nanoTime();
+        long t0 = System.nanoTime();
+        PathResult<MapPoint> resultado = algoritmo.find(grafo, inicio, finalA);
+        long t1 = System.nanoTime();
 
-    double milisegundos = (t1 - t0) / 1_000_000.0;
+        double milisegundos = (t1 - t0) / 1_000_000.0;
 
-    List<MapPoint> ruta = new ArrayList<>(resultado.getPath());
-    List<MapPoint> visitadosOrden = new ArrayList<>(resultado.getVisitados());
+        List<MapPoint> ruta = new ArrayList<>(resultado.getPath());
+        List<MapPoint> visitadosOrden = new ArrayList<>(resultado.getVisitados());
 
-    if (ruta.isEmpty()) {
-        JOptionPane.showMessageDialog(mapPanel,
-                "No hay camino entre Inicio y Destino");
-        mainFrame.mostrarResultado(String.format(
-                "Algoritmo: %s%nTiempo: %.3f ms%nVisitados: %d%nOrden visitados: %s%nNo se encontró una ruta.",
+        if (ruta.isEmpty()) {
+            JOptionPane.showMessageDialog(mapPanel,"No hay camino entre Inicio y Destino");
+            mainFrame.mostrarResultado(String.format("Algoritmo: %s%nTiempo: %.3f ms%nVisitados: %d%nOrden visitados: %s%nNo se encontró una ruta.",
                 nombreAlgoritmo,
                 milisegundos,
                 visitadosOrden.size(),
                 visitadosOrden));
 
-        mapPanel.limpiarResultados();
-        mapPanel.repaint();
-        return;
-    }
+            mapPanel.limpiarResultados();
+            mapPanel.repaint();
+            return;
+        }
 
-    mainFrame.mostrarResultado(String.format(
-            "Algoritmo: %s%nTiempo: %.3f ms%nVisitados: %d%nOrden visitados: %s%nRuta encontrada (Longitud=%d): %s",
+        mainFrame.mostrarResultado(String.format("Algoritmo: %s%nTiempo: %.3f ms%nVisitados: %d%nOrden visitados: %s%nRuta encontrada (Longitud=%d): %s",
             nombreAlgoritmo,
             milisegundos,
             visitadosOrden.size(),
@@ -268,14 +265,14 @@ public class MapController {
             ruta.size(),
             ruta));
 
-    mapPanel.setResultado(ruta, visitadosOrden);
+        mapPanel.setResultado(ruta, visitadosOrden);
 
-    if (mainFrame.getChkRecorrido().isSelected()) {
-        mapPanel.recorridoAnimacion(visitadosOrden, ruta);
-    } else {
-        mapPanel.repaint();
+        if (mainFrame.getChkRecorrido().isSelected()) {
+            mapPanel.recorridoAnimacion(visitadosOrden, ruta);
+        } else {
+            mapPanel.repaint();
+        }
     }
-}
 
     private void guardar() {
         JFileChooser fc = new JFileChooser();

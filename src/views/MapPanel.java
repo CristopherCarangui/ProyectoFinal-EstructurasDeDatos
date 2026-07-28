@@ -42,9 +42,7 @@ public class MapPanel extends JPanel implements MouseListener{
         addMouseListener(this);
     }
 
-    // Al repintar el mapa, tambien repintamos el contenedor padre para que
-    // los paneles semitransparentes que quedan encima (botones/resultados)
-    // se redibujen correctamente durante la animacion.
+
     @Override
     public void repaint() {
         super.repaint();
@@ -169,7 +167,7 @@ public class MapPanel extends JPanel implements MouseListener{
             }
         }
 
-        //ruta final (con animacion de segmento y punto en movimiento)
+        //ruta final
         if(ruta != null && ruta.size()>1){
             gtx.setColor(new Color(57, 255, 20));
             gtx.setStroke(new BasicStroke(4));

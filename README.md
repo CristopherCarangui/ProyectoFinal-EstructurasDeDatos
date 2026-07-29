@@ -296,6 +296,10 @@ Se podrian implementar un peso a cada coneccion, nodo o calle visitada, ademas d
 Para concluir el  análisis de pruebas nos indica la diferencia práctica que existe entre los dos algoritmos.BFS permite siempre hallar el camino corto o camino óptimo.Se verifica con las pruebas en diferentes puntos  de las longitudes de los caminos de BFS, que fueron contemplados en el proceso.Pero, la efectividad de BFS hace que implique un tiempo superior y una mayor exploración de nodos.Por el contrario, DFS es más veloz, pues se profundiza rápidamente.DFS logró obtener tiempos menores a BFS, explorando menos nodos para llegar a destino.En cambio DFS es que ofrece caminos mucho más largos .
 Es así que se debería elegir BFS si se prioriza el sistema para que sea eficiente en el camino.Por el contrario, se tendrá que elegir por DFS si se intenta conseguir cualquier solución rápida independientemente de su calidad.La elección se basa en el tipo de balance que se quiera conseguir entre el costo de velocidad y la mejor calidad.
 
+Richard Japón : 
+
+Durante el desarrollo del proyecto se usaron y probaron los algoritmos de búsqueda BFS y DFS. Se comprobó que ambos funcionan bien. Sin embargo, su rendimiento depende del escenario en el que se usan. Se observó cómo cambian el tiempo de ejecución y el recorrido que hace cada algoritmo. Esto muestra las diferencias entre una búsqueda por niveles y una búsqueda en profundidad.
+
 
 ## Recomendaciones
 

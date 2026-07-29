@@ -9,14 +9,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionEvent;
-import graphs.Graph;
-import graphs.PathFinder;
-import graphs.PathResult;
-import graphs.implementations.BFSPathFinder;
-import graphs.implementations.DFSPathFinder;
+
 import models.MapPoint;
 import persistence.FileGraphRepository;
 import persistence.GraphRepository;
+import structures.graphs.Graph;
+import structures.graphs.PathFinder;
+import structures.graphs.PathResult;
+import structures.graphs.implementations.BFSPathFinder;
+import structures.graphs.implementations.DFSPathFinder;
 import views.MainFrame;
 import views.MapPanel;
 

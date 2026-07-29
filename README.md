@@ -110,18 +110,19 @@ ProyectoFinal-EST/
 ├── src/
 │   ├── controllers/
 │   │   └── MapController.java
-│   ├── graphs/    
-│   │   ├── Graph.java
-│   │   ├── PathFinder.java
-│   │   ├── PathResult.java
-│   │   └── implementations/
-│   │       ├── BFSPathFinder.java
-│   │       └── DFSPathFinder.java 
+│   ├── structure/
+│   │   ├── graphs/    
+│   │   │   ├── Graph.java
+│   │   │   ├── PathFinder.java
+│   │   │   ├── PathResult.java
+│   │   │   └── implementations/
+│   │   │       ├── BFSPathFinder.java
+│   │   │       └── DFSPathFinder.java 
+│   │   └── node/
+│   │       └── Node.java
 │   ├── models/
 │   │   ├── MapPoint.java
 │   │   ├── VisualizationMode.java
-│   │   └── node/
-│   │       └── Node.java
 │   ├── persistence/
 │   │   ├── FileGraphRepository.java
 │   │   └── GraphRepository.java

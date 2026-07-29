@@ -1,4 +1,4 @@
-package graphs;
+package structures.graphs;
 
 import java.util.List;
 import java.util.Set;

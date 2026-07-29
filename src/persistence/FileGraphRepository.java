@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import graphs.Graph; 
 import models.MapPoint;
-import node.Node; 
+import structures.Node;
+import structures.graphs.Graph; 
 
 public class FileGraphRepository implements GraphRepository {
 

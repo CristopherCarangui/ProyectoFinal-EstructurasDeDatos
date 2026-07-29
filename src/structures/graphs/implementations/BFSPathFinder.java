@@ -1,4 +1,4 @@
-package graphs.implementations;
+package structures.graphs.implementations;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import graphs.Graph;
-import graphs.PathFinder;
-import graphs.PathResult;
-import node.Node;
+import structures.Node;
+import structures.graphs.Graph;
+import structures.graphs.PathFinder;
+import structures.graphs.PathResult;
 
 public class BFSPathFinder<T> implements PathFinder<T> {
 

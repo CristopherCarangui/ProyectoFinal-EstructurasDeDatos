@@ -1,10 +1,12 @@
 package views;
 
 import javax.swing.JPanel;
-import graphs.Graph;
+
 import models.MapPoint;
 import models.VisualizationMode;
-import node.Node;
+import structures.Node;
+import structures.graphs.Graph;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

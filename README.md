@@ -241,21 +241,69 @@ Usando recursividad dentro del mapa guardado en cada paso, BFS retrocede desde P
 ```text
 | Caso | Algoritmo | Inicio | Destino | Nodos visitados | Cantidad de aristas | Tiempo |
 |------|-----------|--------|---------|-----------------|---------------------|--------|
-| 1    | BFS       | | | | | |
-| 1    | DFS       | | | | | |
-| 2    | BFS       | | | | | |
-| 2    | DFS       | | | | | |
-| 3    | BFS       | | | | | |
-| 3    | DFS       | | | | | |
+| 1    | BFS       | P5 | P40 | Orden visitados: [P5, P13, P12, P14, P16, P6, P19, P27, P17, P15, P7, P9, P18, P22, P26, P46, P59, P4, P8, P10, P23, P63, P21, P20, P28, P31, P47, P60, P3, P11, P25, P30, P48, P44, P61, P32, P50, P51, P39, P43, P33, P35, P49, P56, P52, P40] | 8 | 0,160 ms |
+| 1    | DFS       | P5 | P40 | Orden visitados: [P5, P13, P12, P6, P7, P4, P8, P9, P10, P19, P18, P17, P14, P27, P26, P28, P63, P25, P31, P30, P61, P33, P32, P23, P22, P21, P20, P35, P34, P36, P44, P39, P40] | 22 | 0,079 ms |
+| 2    | BFS       | P47 | P20 | Orden visitados: [P47, P48, P50, P51, P49, P43, P56, P52, P60, P42, P58, P62, P44, P46, P26, P40, P41, P55, P54, P39, P28, P27, P31, P37, P38, P17, P63, P25, P30, P36, P33, P14, P12, P18, P61, P32, P35, P6, P13, P19, P23, P34, P5, P7, P9, P16, P22, P21, P4, P8, P10, P15, P20] | 11 | 0,418 ms |
+| 2    | DFS       | P47 | P20 | Orden visitados: [P47, P48, P50, P49, P43, P42, P40, P39, P38, P37, P36, P33, P32, P25, P31, P26, P28, P17, P14, P27, P46, P60, P44, P12, P6, P5, P13, P16, P15, P59, P3, P4, P7, P8, P9, P10, P19, P18, P23, P22, P21, P20] | 28 | 0,107 ms |
+| 3    | BFS       | P3 | P62 | Orden visitados: [P3, P4, P59, P5, P15, P13, P12, P14, P16, P6, P19, P27, P17, P7, P9, P18, P22, P26, P46, P8, P10, P23, P63, P21, P20, P28, P31, P47, P60, P11, P25, P30, P48, P44, P61, P32, P50, P51, P39, P43, P33, P35, P49, P56, P52, P40, P38, P42, P36, P34, P58, P62] | 11 | 0,238 ms |
+| 3    | DFS       | P3 | P62 | Orden visitados: [P3, P4, P5, P13, P12, P6, P7, P8, P9, P10, P19, P18, P17, P14, P27, P26, P28, P63, P25, P31, P30, P61, P33, P32, P23, P22, P21, P20, P35, P34, P36, P44, P39, P40, P42, P41, P37, P38, P43, P49, P60, P46, P47, P48, P50, P51, P56, P58, P55, P52, P62] | 34 | 0,154 ms |
 ```
+
+¿Qué diferencias se observaron en el orden de exploración de BFS y DFS?
+
+- El BFS busca la ruta de manera concéntrica o por niveles, es decir que comienza en el nodo inicio y va recorriendo por niveles visitando a todos los nodos vecinos. 
+
+- DFS busca el la ruta siguiendo un solo camino hasta llegar a su final o el destino deseado, si no lo encuetra usa backtracking (retroceso) para tomar otra ruta. 
+
+¿BFS encontró una ruta con menor cantidad de aristas en todos los casos evaluados?
+
+- Si, en todos los casos BFS obtuvo la ruta mas corta por su forma de explorar por niveles. 
+
+¿DFS encontró rutas diferentes a las obtenidas con BFS?
+
+Si, ya que BFS busca el camino con menor nivel mientras que DFS profundiza cada camino y se guia por la prioridad de inserción en su pila de exploracion, generalmente menos óptimo. 
+
+¿Qué algoritmo visitó más nodos en cada caso?
+
+En los tres casos BFS visito a mas nodos antes de llegar al destino.
+
+¿Los tiempos de ejecución fueron suficientes para determinar cuál algoritmo es mejor?
+
+No, principalmente porque los tiempos solo varian por milisegundos, ademas para saber cual es mejor se deben ver mas aspectos como el objetivo de la busqueda, o el tamaño de la ruta esperada. 
+
+¿Cómo influyó la estructura del grafo en el comportamiento de cada algoritmo?
+
+Su influencia radico en como estan unidos los nodos, pues esto determino como los algoritmos exploran el mapa y la longitud de sus rutas. 
+
+¿Qué ventajas aporta separar la lógica del algoritmo de la visualización?
+
+Principalmente que al cambiar la interfaz o vista del algoritmo no nesesariamente debe afectar a la logica del programa, es decir son independientes pero trabajan en conjunto. 
+
+¿Qué mejoras podrían implementarse para trabajar con calles ponderadas?
+
+Se podrian implementar un peso a cada coneccion, nodo o calle visitada, ademas de medir la distancia o el tiempo. Ademas de modificar nuestros algoristos para que funciones con pesos o ponderaciones, o buscar otros algoritmos que funcionen con ponderacion para encontrar la ruta con menor costo. 
 
 ## Conclusiones
 
----- Completar
+- Edwin Pintado 
+
+- El análisis de los algoritmos muestra que ambos tienen diferencias entre ambas estrategias de búsqueda, pues BFS explora el grafo nivel por nivel para asegurar la ruta óptima pero se demora mas es por eso que no se puede asegurar un mejor metodo sin antes tener un objetivo claro.
+
+- Por este motivo, BFS puede considerarse la mejor opción para encontrar soluciones óptimas, con la desventaja de que por su metodo de busqueda suele demorar mas, es decir que su coste es mayor.
+
+- En conclucion cada uno tiene sus pros y contras y el mejor va a depender exclusiamente del objetivo se que tenga. 
 
 ## Recomendaciones
 
----- Completar
+- Validar la configuración antes de construir el grafo.
+- Evitar que los algoritmos modifiquen directamente los componentes de la interfaz.
+- Utilizar identificadores únicos para todos los nodos.
+- Controlar correctamente los visitados para evitar ciclos infinitos.
+- Medir el algoritmo sin incluir animaciones ni operaciones de dibujo.
+- Probar el sistema con grafos conectados, desconectados y con ciclos.
+- Refactorizar clases extensas y eliminar responsabilidades duplicadas.
+- Documentar las decisiones de diseño y las limitaciones de la solución.
+- Verificar el JAR en otro computador antes de realizar la entrega final.
 
 ## Fuentes
 

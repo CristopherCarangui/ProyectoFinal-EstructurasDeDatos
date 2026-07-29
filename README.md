@@ -238,16 +238,16 @@ Usando recursividad dentro del mapa guardado en cada paso, BFS retrocede desde P
 
 ## Tabla comparativa
 
-```text
-| Caso | Algoritmo | Inicio | Destino | Nodos visitados | Cantidad de aristas | Tiempo |
-|------|-----------|--------|---------|-----------------|---------------------|--------|
+
+| Caso | Algoritmo | Inicio | Destino | Nodos visitados                       | Cantidad de aristas | Tiempo |
+|------|-----------|--------|---------|---------------------------------------|--------------------|--------|
 | 1    | BFS       | P5 | P40 | Orden visitados: [P5, P13, P12, P14, P16, P6, P19, P27, P17, P15, P7, P9, P18, P22, P26, P46, P59, P4, P8, P10, P23, P63, P21, P20, P28, P31, P47, P60, P3, P11, P25, P30, P48, P44, P61, P32, P50, P51, P39, P43, P33, P35, P49, P56, P52, P40] | 8 | 0,160 ms |
 | 1    | DFS       | P5 | P40 | Orden visitados: [P5, P13, P12, P6, P7, P4, P8, P9, P10, P19, P18, P17, P14, P27, P26, P28, P63, P25, P31, P30, P61, P33, P32, P23, P22, P21, P20, P35, P34, P36, P44, P39, P40] | 22 | 0,079 ms |
 | 2    | BFS       | P47 | P20 | Orden visitados: [P47, P48, P50, P51, P49, P43, P56, P52, P60, P42, P58, P62, P44, P46, P26, P40, P41, P55, P54, P39, P28, P27, P31, P37, P38, P17, P63, P25, P30, P36, P33, P14, P12, P18, P61, P32, P35, P6, P13, P19, P23, P34, P5, P7, P9, P16, P22, P21, P4, P8, P10, P15, P20] | 11 | 0,418 ms |
 | 2    | DFS       | P47 | P20 | Orden visitados: [P47, P48, P50, P49, P43, P42, P40, P39, P38, P37, P36, P33, P32, P25, P31, P26, P28, P17, P14, P27, P46, P60, P44, P12, P6, P5, P13, P16, P15, P59, P3, P4, P7, P8, P9, P10, P19, P18, P23, P22, P21, P20] | 28 | 0,107 ms |
 | 3    | BFS       | P3 | P62 | Orden visitados: [P3, P4, P59, P5, P15, P13, P12, P14, P16, P6, P19, P27, P17, P7, P9, P18, P22, P26, P46, P8, P10, P23, P63, P21, P20, P28, P31, P47, P60, P11, P25, P30, P48, P44, P61, P32, P50, P51, P39, P43, P33, P35, P49, P56, P52, P40, P38, P42, P36, P34, P58, P62] | 11 | 0,238 ms |
 | 3    | DFS       | P3 | P62 | Orden visitados: [P3, P4, P5, P13, P12, P6, P7, P8, P9, P10, P19, P18, P17, P14, P27, P26, P28, P63, P25, P31, P30, P61, P33, P32, P23, P22, P21, P20, P35, P34, P36, P44, P39, P40, P42, P41, P37, P38, P43, P49, P60, P46, P47, P48, P50, P51, P56, P58, P55, P52, P62] | 34 | 0,154 ms |
-```
+
 
 ¿Qué diferencias se observaron en el orden de exploración de BFS y DFS?
 

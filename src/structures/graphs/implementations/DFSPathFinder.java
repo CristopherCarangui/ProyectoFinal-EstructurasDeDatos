@@ -1,14 +1,14 @@
-package graphs.implementations;
+package structures.graphs.implementations;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import graphs.Graph;
-import graphs.PathFinder;
-import graphs.PathResult;
-import node.Node;
+import structures.Node;
+import structures.graphs.Graph;
+import structures.graphs.PathFinder;
+import structures.graphs.PathResult;
 
 public class DFSPathFinder<T> implements PathFinder<T> {
 

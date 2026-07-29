@@ -1,10 +1,10 @@
-package graphs;
+package structures.graphs;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import node.Node;
+import structures.Node;
 
 public class Graph<T>{
     Map<Node<T>, Set<Node<T>>> graph;

@@ -99,7 +99,7 @@ Una búsqueda en profundidad (DFS) no necesariamente encuentra el camino más co
 
 ## Diagrama UML
 
----- Completar
+![alt text](src/resources/images/uml.jpeg)
 
 ## Arquitectua y estructura de carpetas
 
